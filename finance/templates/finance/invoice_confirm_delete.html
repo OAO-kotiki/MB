@@ -1,0 +1,23 @@
+{% extends 'corecode/base.html' %}
+
+
+{% block title %}
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  <div class="alert">
+    <p>Вы действительно хотите удалить счёт "{{ object }}"?</p>
+    <p>Всё связанное с этим счётом будет также удалено</p>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Продолжить">
+
+</form>
+
+
+{% endblock content %}

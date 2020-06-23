@@ -1,0 +1,105 @@
+{% extends 'corecode/base.html' %}
+{% load humanize %}
+
+{% block content-header %}
+<div class="card-header">
+  <div class="card-tools">
+    <a href="#" class="btn btn-tool">Печать</a>
+    <a href="{% url 'invoice-update' object.id %}" class="btn btn-tool">
+      <i class="fas fa-edit"></i>
+    </a>
+    <a href="{% url 'invoice-delete' object.id %}" class="btn btn-tool">
+      <i class="fas fa-times"></i>
+    </a>
+  </div>
+</div>
+{% endblock content-header %}
+
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-4">
+    <h3>{{ object }} </h3>
+    <h5>Сессия: {{ object.Сессия }} </h5>
+    <h5>Семестр: {{ object.Семестр }} </h5>
+    <h5>Группа: {{ object.Группа }} </h5>
+    <h6>Статус: {{ object.get_Статус_display }} </h6>
+    <hr>
+    <div>
+      <h4>Ожидаемый Баланс: {{ object.balance | intcomma }}</h4>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <table class="table table-sm table-bordered">
+      Счёт</br>
+      <thead class="thead-light">
+        <tr>
+          <th>Номер</th>
+          <th>Описание</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ forloop.counter }} </td>
+          <td>{{ item.description }} </td>
+          <td>{{ item.amount }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>Общая сумма за семестр</td>
+          <td>{{ object.amount_payable | intcomma}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Остаток на счёте</td>
+          <td>{{ object.Остаток | intcomma }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Общая сумма оплаты</td>
+          <td>{{ object.total_amount_payable | intcomma}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Общая выплаченная сумма</td>
+          <td>{{ object.total_amount_paid | intcomma}}</td>
+        </tr>
+
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<h5>История платежей</h5>
+<table class="table table-bordered table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>Номер</th>
+      <th>Выплаченная сумма</th>
+      <th>Дата Платежа</th>
+      <th>Коментарий к платежу</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for receipt in receipts %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ receipt.Выплаченная_сумма}}</td>
+      <td>{{ receipt.Дата_платежа}}</td>
+      <td>{{ receipt.Коментарий}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock content %}

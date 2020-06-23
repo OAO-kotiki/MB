@@ -1,0 +1,39 @@
+{% extends 'corecode/base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-8">
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      {% include 'corecode/form_snippet.html' %}
+
+      <input type="submit" class="btn btn-primary" value="Добавить платёж">
+
+    </form>
+  </div>
+
+  <div class="col-4">
+    <div class="alert alert-info" role="alert">
+      <h3>Счёт</h3>
+      <p>{{invoice | upper}}</p>
+      <hr>
+      <ul>
+
+        <li>Сессия: {{ invoice.Сессия }}</li>
+        <li>Семестр: {{ invoice.Семестр }}</li>
+        <li>Группа: {{ invoice.Группа }}</li>
+        <li>Общая сумма к оплате: {{invoice.total_amount_payable | intcomma }}
+        </li>
+        <li>Общая выплаченная сумма: {{ invoice.total_amount_paid | intcomma }}</li>
+        <li><strong>Баланс: {{invoice.balance | intcomma }}</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
