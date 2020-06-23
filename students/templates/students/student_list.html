@@ -1,0 +1,50 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}Студенты{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'student-create' %}"><i
+    class="fas fa-plus"></i> Новый студент</a>
+<a class="btn btn-primary" href="{% url 'student-upload' %}"><i
+    class="fas fa-upload"></i> Загрузить студента</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <table id="studenttable" class="table table-bordered table-hover" data-page-length='10'>
+    <thead class="thead-light">
+      <tr>
+        <th>Номер</th>
+        <th>Полное Имя</th>
+        <th>Регистрационный номер</th>
+        <th>Группа</th>
+        <th>Пол</th>
+        <th>Телефон</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for student in students %}
+        <tr class='clickable-row' data-href="{% url 'student-detail' student.id %}">
+          <td>{{ forloop.counter}}</td>
+          <td>{{ student.Фамилия}} {{student.Имя }} {{student.Отчество }}</td>
+          <td>{{ student.Регистрационный_номер}}</td>
+          <td>{{ student.Группа}}</td>
+          <td>{{ student.get_Пол_display}}</td>
+          <td>{{ student.Телефон}}</td>
+          <td>{{ student.get_статус_display}}</td>
+        </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock content %}
+
+
+{% block morejs %}
+<script>
+  $('#studenttable').DataTable({
+  });
+</script>
+
+{% endblock morejs %}

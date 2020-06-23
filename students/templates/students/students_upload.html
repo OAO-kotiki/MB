@@ -1,0 +1,23 @@
+{% extends 'corecode/base.html' %}
+
+
+{% block title %}
+  Загрузить студента
+{% endblock title %}
+
+
+{% block content %}
+
+  <div class="col alert alert-info">
+    <h5>Инструкция</h5>
+    <p><a href="{% url 'download-csv' %}">Загрузите CSV фаил</a>. Если у вас нет CSV фаила, то можете загрузить его здесь. Внимание не редактируйте првую строку</p>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'corecode/form_snippet.html' %}
+
+    <input type="submit" class="btn btn-success" value="Загрузить">
+  </form>
+
+{% endblock content %}
