@@ -1,0 +1,45 @@
+{% extends 'corecode/base.html' %}
+
+{% block title %}Преподователи{% endblock title %}
+
+{% block breadcrumb %}
+<a class="btn btn-primary" href="{% url 'staff-create' %}"><i
+    class="fas fa-plus"></i> Создать преподователя</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <table id="stafftable" class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Номер</th>
+        <th>ФИО</th>
+        <th>Пол</th>
+        <th>Телефон</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for staff in object_list %}
+        <tr class='clickable-row' data-href="{% url 'staff-detail' staff.id %}">
+          <td>{{ forloop.counter}}</td>
+          <td>{{ staff.Фамилия}} {{staff.Имя }} {{staff.Отчество }}</td>
+          <td>{{ staff.get_Пол_display}}</td>
+          <td>{{ staff.Телефон}}</td>
+          <td>{{ staff.get_Статус_display}}</td>
+        </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock content %}
+
+
+{% block morejs %}
+<script>
+   $('#stafftable').DataTable({
+    select: false
+    });
+</script>
+
+{% endblock morejs %}

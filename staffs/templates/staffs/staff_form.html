@@ -1,0 +1,30 @@
+{% extends 'corecode/base.html' %}
+
+
+{% block title %}
+
+  {% if object %}
+    Обновить {{ object }}
+  {% else %}
+    Добавить нового преподавателя
+  {% endif %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  {% include 'corecode/form_snippet.html' %}
+
+  {% if object %}
+    <input type="submit" class="btn btn-primary" value="Обновить">
+  {% else %}
+    <input type="submit" class="btn btn-primary" value="Добавить нового преподавателя">
+  {% endif %}
+</form>
+
+
+{% endblock content %}

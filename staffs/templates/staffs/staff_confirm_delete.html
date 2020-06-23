@@ -1,0 +1,23 @@
+{% extends 'corecode/base.html' %}
+
+
+{% block title %}
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  <div class="alert">
+    <p>Вы точно хотите удалить "{{ object }}"?</p>
+    <p>Всё что связанно с этим преподавателем будет также удалено</p>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="продолжить">
+
+</form>
+
+
+{% endblock content %}
